@@ -11,7 +11,7 @@ venv/
 
 # production
 /build
-
+backend/ai_blog_generator/__pycache__/*
 backend/media/*
 
 

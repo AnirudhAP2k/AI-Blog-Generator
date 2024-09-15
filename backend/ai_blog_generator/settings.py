@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
 import os
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-6!67k2=jdb+s5&&aya*nmq+e$_!62u9((a^w9)lp^(6mm#v4fz'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DJANGO_DEBUG') == True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '').split(',')
 
 
 # Application definition
@@ -85,15 +88,14 @@ WSGI_APPLICATION = 'ai_blog_generator.wsgi.application'
 # }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'blog_generator',
-        'USER': 'root',
-        'PASSWORD': 'Y2SlI42eOT7PNIKg8DVHxOhzEVcuv2hp',
-        'HOST': 'dpg-crebm6dsvqrc73fhsma0-a.oregon-postgres.render.com',
-        'PORT': '5432',
+        'ENGINE': os.getenv("DB_ENGINE", "django.db.backends.sqlite3"),
+        'NAME': os.getenv("DB_NAME", "mydatabase"),
+        'USER': os.getenv("DB_USER", ""),
+        'PASSWORD': os.getenv("DB_PASSWORD", ""),
+        'HOST': os.getenv("DB_HOST", "localhost"),
+        'PORT': os.getenv("DB_PORT", "5432"),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
