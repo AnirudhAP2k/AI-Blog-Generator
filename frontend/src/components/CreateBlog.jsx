@@ -4,13 +4,19 @@ import BlogContext from '../context/BlogContext';
 const CreateBlog = () => {
 	const context = useContext(BlogContext);
 	
-	const { link, setLink, generateDisable, createBlog, blogContent } = context;
+	const { link, setLink, navigate, generateDisable, createBlog, blogContent } = context;
 	const [videoLink, setVideoLink] = useState("");
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setLink(videoLink);
 	}
+
+	useEffect(() => {
+		if (!sessionStorage.getItem('access_token')) {
+		  navigate('/login');
+		}
+	  }, [navigate]);
 
 	useEffect(()=>{
 		if(link.length){
