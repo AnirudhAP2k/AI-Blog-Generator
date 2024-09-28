@@ -11,9 +11,8 @@ venv/
 
 # production
 /build
-backend/ai_blog_generator/__pycache__/*
+__pycache__
 backend/media/*
-
 
 # misc
 .DS_Store
